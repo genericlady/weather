@@ -10,10 +10,9 @@ defmodule Weather.TableFormatter do
   the longest element in that column.  
   """
   
-  def print_table_for_columns(rows) do
-    # get headers from rows
-    data_by_columns   = split_into_columns(rows, get_headers(rows))
-    # column_widths   = widths_of(data_by_columns)
+  def print_table_for_columns(weather_details) do
+    data_by_columns   = split_into_columns(weather_details)
+    column_widths   = widths_of(data_by_columns)
     # format          = format_for(column_widths)
     # 
     # puts_one_line_in_columns headers, format
@@ -21,9 +20,6 @@ defmodule Weather.TableFormatter do
     # puts_in_columns data_by_columns, format
   end
   
-  def get_headers(rows) do
-    HashDict.keys(rows)
-  end
   
   @doc """
   Given a list of rows, where each row contains a keyed
@@ -36,11 +32,8 @@ defmodule Weather.TableFormatter do
       iex> Issues.TableFormatter.split_into_columns(list, [ "a", "b", "c" ])
       [ ["1", "4"], ["2", "5"], ["3", "6"] ]
   """
-  def split_into_columns(rows, headers) do
-    for header <- headers do
-      printable(rows[header])
-        |> IO.inspect
-    end
+  def split_into_columns(weather_details) do
+    [ HashDict.keys(weather_details), HashDict.values(weather_details) ]
   end
   
   @doc """
